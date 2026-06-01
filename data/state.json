@@ -1,0 +1,12 @@
+{
+  "sinceId": null,
+  "ida": {
+    "status": "LIBRE",
+    "lastAlertAt": null
+  },
+  "vuelta": {
+    "status": "LIBRE",
+    "lastAlertAt": null
+  },
+  "lastDigestAt": null
+}

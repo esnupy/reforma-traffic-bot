@@ -1,0 +1,22 @@
+{
+  "name": "reforma-traffic-bot",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Alertas Telegram sobre bloqueos de Metrobús en Reforma (Cuitláhuac ↔ Diana) vía X API",
+  "type": "module",
+  "scripts": {
+    "job": "tsx src/jobs/run.ts",
+    "job:digest": "JOB_FORCE=digest tsx src/jobs/run.ts",
+    "job:ida": "JOB_DIRECTION=ida tsx src/jobs/run.ts",
+    "job:vuelta": "JOB_DIRECTION=vuelta tsx src/jobs/run.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.21",
+    "tsx": "^4.19.4",
+    "typescript": "^5.8.3"
+  }
+}
