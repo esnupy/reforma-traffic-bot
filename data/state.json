@@ -2,11 +2,11 @@
   "sinceId": "2060090830363468150",
   "ida": {
     "status": "LIBRE",
-    "lastAlertAt": "2026-06-01T05:05:13.793Z"
+    "lastAlertAt": "2026-06-01T14:08:31.466Z"
   },
   "vuelta": {
     "status": "LIBRE",
     "lastAlertAt": null
   },
-  "lastDigestAt": null
+  "lastDigestAt": "2026-06-01T14:08:31.466Z"
 }
