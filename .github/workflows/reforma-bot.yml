@@ -1,6 +1,8 @@
 name: Reforma Bot
 
 on:
+  push:
+    branches: [master]
   schedule:
     # Ida 6:00-8:00 AM CDMX = 12:00-14:00 UTC (incluye digest 7:45)
     - cron: "*/5 12-14 * * 1-5"
@@ -38,6 +40,7 @@ jobs:
         run: npm ci
 
       - name: Run job
+        if: github.event_name != 'push'
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
@@ -48,6 +51,7 @@ jobs:
         run: npm run job
 
       - name: Persist state
+        if: github.event_name != 'push'
         run: |
           git config user.name "reforma-bot"
           git config user.email "41898282+reforma-bot[bot]@users.noreply.github.com"
