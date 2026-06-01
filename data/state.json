@@ -1,8 +1,8 @@
 {
-  "sinceId": null,
+  "sinceId": "2060090830363468150",
   "ida": {
     "status": "LIBRE",
-    "lastAlertAt": null
+    "lastAlertAt": "2026-06-01T05:05:13.793Z"
   },
   "vuelta": {
     "status": "LIBRE",
