@@ -41,10 +41,16 @@ Hosting **$0** con GitHub Actions.
 
 ## Desarrollo local
 
-```bash
-cp .env.example .env
-# Edita .env con tus tokens
+Crea un archivo `.env` en la raíz (no se sube a Git) con:
 
+```env
+TELEGRAM_BOT_TOKEN=tu_token_de_botfather
+TELEGRAM_CHAT_ID=tu_chat_id
+X_BEARER_TOKEN=tu_bearer_token_de_x
+SEARCH_QUERY=(Metrobús OR Metrobus OR "Línea 1" OR "Línea 7") (Reforma OR "Paseo de la Reforma") (bloqueo OR manifestantes OR marcha OR cerrada OR afectado OR suspendido) -is:retweet lang:es
+```
+
+```bash
 npm install
 npm run job:digest   # resumen inmediato
 npm run job:ida      # consulta ida
