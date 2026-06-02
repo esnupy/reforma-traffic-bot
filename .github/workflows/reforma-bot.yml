@@ -4,11 +4,18 @@ on:
   push:
     branches: [master]
   schedule:
-    # Ida 6:00-8:00 AM CDMX = 12:00-14:00 UTC (incluye digest 7:45)
-    - cron: "*/5 12-14 * * 1-5"
-    # Vuelta 4:00-6:00 PM CDMX = 22:00-00:00 UTC
-    - cron: "*/5 22-23 * * 1-5"
-    - cron: "0 0 * * 2-6"
+    # Polling ida 6:00-8:00 AM CDMX (Lun-Vie)
+    - cron: "*/5 6-8 * * 1-5"
+      timezone: "America/Mexico_City"
+    # Resumen diario 7:45 AM CDMX — tramo ida (Lun-Vie)
+    - cron: "45 7 * * 1-5"
+      timezone: "America/Mexico_City"
+    # Polling vuelta 4:00-6:00 PM CDMX (Lun-Vie)
+    - cron: "*/5 16-18 * * 1-5"
+      timezone: "America/Mexico_City"
+    # Resumen vespertino 4:45 PM CDMX — tramo vuelta (Lun-Vie)
+    - cron: "45 16 * * 1-5"
+      timezone: "America/Mexico_City"
   workflow_dispatch:
     inputs:
       direction:

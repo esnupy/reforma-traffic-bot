@@ -55,9 +55,34 @@ const isVueltaWindow = (parts: MexicoParts): boolean => {
   return minutes >= 16 * 60 && minutes <= 18 * 60;
 };
 
-/** Digest: ~7:45 AM CDMX */
-const isDigestWindow = (parts: MexicoParts): boolean =>
-  parts.hour === 7 && parts.minute >= 43 && parts.minute <= 47;
+/** Digest matutino ida: ~7:45 AM CDMX (ventana amplia por delays de GitHub Actions) */
+const isIdaDigestWindow = (parts: MexicoParts): boolean => {
+  const minutes = toMinutes(parts);
+  return minutes >= 7 * 60 + 40 && minutes <= 7 * 60 + 55;
+};
+
+/** Digest vespertino vuelta: ~4:45 PM CDMX */
+const isVueltaDigestWindow = (parts: MexicoParts): boolean => {
+  const minutes = toMinutes(parts);
+  return minutes >= 16 * 60 + 40 && minutes <= 16 * 60 + 55;
+};
+
+/** Evita enviar el digest más de una vez el mismo día (hora CDMX). */
+export const wasDigestSentToday = (lastDigestAt: string | null): boolean => {
+  if (!lastDigestAt) {
+    return false;
+  }
+
+  const dateKey = (date: Date): string =>
+    new Intl.DateTimeFormat("en-CA", {
+      timeZone: MEXICO_TZ,
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    }).format(date);
+
+  return dateKey(new Date(lastDigestAt)) === dateKey(new Date());
+};
 
 const resolveDirection = (
   input: string,
@@ -85,7 +110,9 @@ export const resolveJobContext = (): JobContext | null => {
   const isManualDispatch = process.env.GITHUB_EVENT_NAME === "workflow_dispatch";
 
   if (force === "digest") {
-    return { mode: "digest", direction: "ida" };
+    const direction: Direction =
+      directionInput === "vuelta" ? "vuelta" : "ida";
+    return { mode: "digest", direction };
   }
 
   if (isManualDispatch) {
@@ -105,8 +132,12 @@ export const resolveJobContext = (): JobContext | null => {
     return null;
   }
 
-  if (isDigestWindow(parts)) {
+  if (isIdaDigestWindow(parts)) {
     return { mode: "digest", direction: "ida" };
+  }
+
+  if (isVueltaDigestWindow(parts)) {
+    return { mode: "digest", direction: "vuelta" };
   }
 
   if (isIdaWindow(parts)) {

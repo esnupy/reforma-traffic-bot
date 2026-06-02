@@ -2,11 +2,12 @@
   "sinceId": null,
   "ida": {
     "status": "LIBRE",
-    "lastAlertAt": null
+    "lastAlertAt": null,
+    "lastDigestAt": null
   },
   "vuelta": {
     "status": "LIBRE",
-    "lastAlertAt": null
-  },
-  "lastDigestAt": null
+    "lastAlertAt": null,
+    "lastDigestAt": null
+  }
 }

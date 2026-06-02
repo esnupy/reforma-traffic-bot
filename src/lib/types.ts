@@ -7,13 +7,13 @@ export type JobMode = "digest" | "poll" | "manual";
 export interface DirectionState {
   status: RouteStatus;
   lastAlertAt: string | null;
+  lastDigestAt: string | null;
 }
 
 export interface BotState {
   sinceId: string | null;
   ida: DirectionState;
   vuelta: DirectionState;
-  lastDigestAt: string | null;
 }
 
 export interface ParsedTweet {

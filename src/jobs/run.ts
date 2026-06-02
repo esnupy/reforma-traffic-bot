@@ -3,7 +3,11 @@ import { loadState, saveState } from "../lib/state.js";
 import { searchRecentTweets } from "../sources/x-search.js";
 import { buildStatusMessage, evaluateStatus } from "../engine/status.js";
 import { sendTelegramMessage } from "../notify/telegram.js";
-import { resolveJobContext, shouldNotify } from "./context.js";
+import {
+  resolveJobContext,
+  shouldNotify,
+  wasDigestSentToday,
+} from "./context.js";
 
 const main = async (): Promise<void> => {
   const config = getConfig();
@@ -16,6 +20,11 @@ const main = async (): Promise<void> => {
 
   const state = await loadState(config.statePath);
   const directionState = state[context.direction];
+
+  if (context.mode === "digest" && wasDigestSentToday(directionState.lastDigestAt)) {
+    console.log(`Digest ${context.direction} ya enviado hoy. Job omitido.`);
+    return;
+  }
   const search = await searchRecentTweets(config, state.sinceId);
   const result = evaluateStatus(
     search.tweets,
@@ -46,7 +55,7 @@ const main = async (): Promise<void> => {
     directionState.lastAlertAt = new Date().toISOString();
 
     if (context.mode === "digest") {
-      state.lastDigestAt = new Date().toISOString();
+      directionState.lastDigestAt = new Date().toISOString();
     }
   } else {
     console.log(

@@ -46,9 +46,15 @@ export const buildStatusMessage = (
   const nowLabel = formatMexicoCityTimestamp(new Date());
 
   if (result.status === "LIBRE") {
-    const prefix =
+    const digestLabel =
       mode === "digest"
-        ? "✅ Reforma LIBRE"
+        ? direction === "ida"
+          ? "Resumen matutino"
+          : "Resumen vespertino"
+        : null;
+    const prefix =
+      digestLabel
+        ? `✅ ${digestLabel}: Reforma LIBRE`
         : mode === "manual"
           ? "✅ Consulta manual: LIBRE"
           : "✅ Reforma sigue LIBRE";
@@ -56,9 +62,15 @@ export const buildStatusMessage = (
     return `${prefix} — Metrobús sin bloqueos reportados en tu tramo (${directionLabel}).\n\nÚltima consulta: ${nowLabel}`;
   }
 
-  const headline =
+  const digestLabel =
     mode === "digest"
-      ? "🚫 Reforma NO LIBRE"
+      ? direction === "ida"
+        ? "Resumen matutino"
+        : "Resumen vespertino"
+      : null;
+  const headline =
+    digestLabel
+      ? `🚫 ${digestLabel}: Reforma NO LIBRE`
       : mode === "manual"
         ? "🚫 Consulta manual: NO LIBRE"
         : "🚫 Alerta: Reforma NO LIBRE";

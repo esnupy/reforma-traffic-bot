@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "job": "tsx src/jobs/run.ts",
-    "job:digest": "JOB_FORCE=digest tsx src/jobs/run.ts",
+    "job:digest": "JOB_FORCE=digest JOB_DIRECTION=ida tsx src/jobs/run.ts",
+    "job:digest:vuelta": "JOB_FORCE=digest JOB_DIRECTION=vuelta tsx src/jobs/run.ts",
     "job:ida": "JOB_DIRECTION=ida tsx src/jobs/run.ts",
     "job:vuelta": "JOB_DIRECTION=vuelta tsx src/jobs/run.ts",
     "typecheck": "tsc --noEmit"
